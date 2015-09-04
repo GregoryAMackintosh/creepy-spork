@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+ 
+G,day Ashley Sands thanks so much for your help
+ 
+This site generates selects a random question and in doing so logarimically slows down and selects one
+ 
+ 
+                So the site should look like this:
+
+
+                ___________________
+                |                 |
+                |  What is 5 + 7  |
+                |                 |
+                |_________________|
+
+                
+                ***** after enough time for question image to show then display choices *****
+ 
+ 
+                select from answers below
+
+                @     nineteen
+                @     14
+                @     12
+                @     ten
+
+ 
+                    |submit|
+
+
+                ***** on clicking submit *****
+
+                Correct.
+
+                    or
+
+                incorrect the answer is...
+
+-->
+<head>
+    <meta charset="utf-8">
+    <title>Oral Practice Question Genrator</title>
+    <script type="text/javascript">
+        function setup() {
+            var timeQuotient = 1;
+            setupRandomImageChanger(timeQuotient);
+        }
+        
+        function setupRandomImageChanger(timeQuotient) {
+            var timeInMilliseconds = 10 * timeQuotient;
+            console.log("time quotient: " + timeQuotient);
+
+            //to change speed adjust the following constants
+            var logPower = 1.1;
+            var numberOfImagesToGoThrough = 39;
+            var numberOfInterations = Math.log(timeQuotient) / Math.log(logPower);
+            if (numberOfInterations < numberOfImagesToGoThrough) {
+                setTimeout(function() { 
+                    changeToRandomImage(); 
+                    setupRandomImageChanger(timeQuotient * logPower);
+                }, timeInMilliseconds);
+            }
+        }
+        
+        function changeToRandomImage(){
+            document.getElementById("randomImage").src = getRandomImagePath();
+        }
+	    
+        /* simply add more images to the array below 
+         images must be in the same directory as */
+        function getRandomImagePath() {
+            var images = [
+                'Question1.png',
+                'Question2.png',
+                'Question3.png',
+                'Question4.png',
+                'Question5.png',
+                'Question6.png'
+                          
+                /* possible syntax per index
+                 
+                 what is 5 + 7
+                 
+                 url, choices, answer
+                 
+                [(Question1.png), (nineteen, 14, 12, ten), (12)] */
+                          
+            ];
+            var randomIndex = Math.round(Math.random()*(images.length - 1));
+            return images[randomIndex];
+        }
+     
+    }
+    </script>
+
+<style type="text/css">
+body{
+text-align:center;
+}
+#picture{
+font-size: 20px;
+</style>	
+
+	
+</head>
+<!-- <body onload="setup();"> -->
+<body style="background-color:lightblue">
+<!-- <body style="background-color:lightgrey"> -->
+
+    <h1>Oral Practice Question Genrator</h1>
+    <img alt="Image Question" id="randomImage"/>
+    
+    <br></br>
+	<button style="font: bold 35px Arial" type="button" onclick="setup()">   Spin    </button>
+    
+	<br></br>
+    <img src="ensign.jpg" alt="AMPIE_ensign" style="width:763px;height:197px;">
+    <!--  <img src="RandomQuestionGen/ensign.jpg" alt="AMPIE_ensign" style="width:763px;height:197px;"> -->
+    
+	<h2>Rebuild Australian Shipping</h2>
+    <!--<br></br>-->
+
+</body>
+</html>
